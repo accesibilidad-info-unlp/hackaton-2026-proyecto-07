@@ -38,7 +38,7 @@ value = sic.streamlit_image_coordinates(
 )
 def es_clic_valido(x, y):
     aula1 = niveles["Planta baja"]["aula1"]
-    
+    # hacerlo con csv y grafos
     puntos_rombo = [
         (aula1["ESI"]["X"], aula1["ESI"]["Y"]),
         (aula1["ESD"]["X"], aula1["ESD"]["Y"]),
@@ -57,6 +57,6 @@ if value is not None:
     y_clic = value["y"]
     
     if es_clic_valido(x_clic, y_clic):
-        st.success(f"Área Válida Clic dentro de Aula 1 en X: {x_clic}, Y: {y_clic}")
+        st.success(f"Aula 1 en X: {x_clic}, Y: {y_clic}")
     else:
         st.error(f"Fuera del rombo. Clic en X: {x_clic}, Y: {y_clic}")
