@@ -1,6 +1,5 @@
 import streamlit as st
 
-
 st.set_page_config(page_title="Inicio", layout="wide")
 
 pag_inicio = st.Page("pages/00_Home.py", title="Inicio")
