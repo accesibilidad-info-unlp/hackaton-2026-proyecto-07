@@ -2,6 +2,7 @@ import streamlit as st
 import plotly as pl
 import streamlit_image_coordinates as sic
 from pathlib import Path
+from shapely.geometry import Point, Polygon
 
 #los niveles se representan por piso, cada piso tiene 
 #atributos (salas, baños, etc). cada atributo tiene 4 coordenadas
@@ -11,9 +12,9 @@ BASE_DIR = Path("resources/images/Levels")
 niveles = {
     "Planta baja": {
         "aula1": {
-            "ESI": {"X": 884, "Y": 354},
-            "ESD": {"X": 880, "Y": 375},
-            "IID": {"X": 849, "Y": 436}, 
+            "ESI": {"X": 843, "Y": 355},
+            "ESD": {"X": 882, "Y": 376},
+            "IID": {"X": 850, "Y": 436}, 
             "EII": {"X": 811, "Y": 415},
         }
     },
@@ -33,24 +34,29 @@ ruta=Path(BASE_DIR)/(imagen)
 st.write(ruta)
 value = sic.streamlit_image_coordinates(
     ruta, 
-    key="plano_baja"
+    key="ruta"
 )
-st.write(value)
-
 def es_clic_valido(x, y):
-    aula1={
-            "ESI": {"X": 884, "Y": 354},
-            "ESD": {"X": 880, "Y": 375},
-            "IID": {"X": 849, "Y": 436}, 
-            "EII": {"X": 811, "Y": 415},
-        }
+    aula1 = niveles["Planta baja"]["aula1"]
+    
+    puntos_rombo = [
+        (aula1["ESI"]["X"], aula1["ESI"]["Y"]),
+        (aula1["ESD"]["X"], aula1["ESD"]["Y"]),
+        (aula1["IID"]["X"], aula1["IID"]["Y"]),
+        (aula1["EII"]["X"], aula1["EII"]["Y"])
+    ]
+    
+    rombo = Polygon(puntos_rombo)
+    punto_clic = Point(x, y)
+    
+    return rombo.contains(punto_clic)
 
+# Procesamos el clic
 if value is not None:
     x_clic = value["x"]
     y_clic = value["y"]
     
     if es_clic_valido(x_clic, y_clic):
-        st.success(f"🎯 ¡Área Válida! Clic en X:{x_clic}, Y:{y_clic}")
-
+        st.success(f"Área Válida Clic dentro de Aula 1 en X: {x_clic}, Y: {y_clic}")
     else:
-        st.error(f"Fuera del rombo. Clic en X:{x_clic}, Y:{y_clic}")
+        st.error(f"Fuera del rombo. Clic en X: {x_clic}, Y: {y_clic}")
