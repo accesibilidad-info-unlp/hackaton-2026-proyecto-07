@@ -1,13 +1,15 @@
 import streamlit as st
 import plotly as pl
 import streamlit_image_coordinates as sic
+from pathlib import Path
 
 #los niveles se representan por piso, cada piso tiene 
 #atributos (salas, baños, etc). cada atributo tiene 4 coordenadas
 #se accede por ej: niveles[planta_baja][{atributo}][{area}]
+BASE_DIR = Path("resources/images/Levels")
 
 niveles = {
-    "planta_baja": {
+    "Planta baja": {
         "aula1": {
             "ESI": {"X": 884, "Y": 354},
             "ESD": {"X": 880, "Y": 375},
@@ -15,16 +17,22 @@ niveles = {
             "EII": {"X": 811, "Y": 415},
         }
     },
-    "nivel_1": {},
-    "nivel_2": {},
-    "techo": {}
+    "Nivel 1": {},
+    "Nivel 2": {},
+    "Techo": {}
 }
 
 st.title("Mapa de la Facultad de Informática")
 
+lista_archivos = [f.name for f in BASE_DIR.iterdir() if f.is_file()]
+
+imagen=st.selectbox("Selecciona un nivel:",
+                  options=list(lista_archivos))
+
+ruta=Path(BASE_DIR)/(imagen)
+st.write(ruta)
 value = sic.streamlit_image_coordinates(
-    "Resources/Images/Levels/planta_baja.png", 
-    width=800,
+    ruta, 
     key="plano_baja"
 )
 st.write(value)
