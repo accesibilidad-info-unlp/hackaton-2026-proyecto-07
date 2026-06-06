@@ -1,1 +1,14 @@
 import streamlit as st
+
+
+niveles={
+nivel1:{aula1{
+    ESI{"x":"1","y":"2"}    1,5   5,1   5,5}
+    ESD:{x:1,y:5}
+    EII:{x5:,y:1}
+    EID:{x:5,y:5}
+}
+nivel2:
+veni3:
+veni4:
+}
