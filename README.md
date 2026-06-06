@@ -22,7 +22,6 @@ Pasos necesarios para ejecutar el proyecto.
 
 Descripción breve del estado del proyecto.
 
-
 ## Para python
 
 El prototipo presentado por el equipo debe incluir como mínimo uno de los siguientes puntos:
